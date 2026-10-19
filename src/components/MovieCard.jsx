@@ -55,7 +55,7 @@ function MovieCard({ movie }) {
           {isFavorite ? '♥ Remove from Favorites' : '♡ Add to Favorites'}
         </button>
         {/* adds and removes movie from watchlist context */}
-        <button className={`cook-list-button ${inWatchlist ? 'added' : ''}`} onClick={handleWatchlistClick}>
+        <button className={`watchlist-button ${inWatchlist ? 'added' : ''}`} onClick={handleWatchlistClick}>
           {inWatchlist ? '✖ Remove from Watchlist' : '+ Add to Watchlist'}
         </button>
       </div>
