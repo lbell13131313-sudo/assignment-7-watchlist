@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useWatchlist } from '../contexts/WatchlistContext';
+import { useWatchlist } from '../contexts/MovieContext';
 
 function MovieCard({ movie }) {
   const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();

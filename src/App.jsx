@@ -6,7 +6,7 @@ import './App.css';
 import { searchMovies } from './services/movieService'; 
 import { useState } from 'react';
 import Watchlist from './pages/Watchlist';
-import { WatchlistProvider } from './contexts/WatchlistContext';
+import { WatchlistProvider } from './contexts/MovieContext';
 
 function App() {
   const [searchResults, setSearchResults] = useState(null);
