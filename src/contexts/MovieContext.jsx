@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 
 // creates my watchlist context
 const WatchlistContext = createContext();
@@ -14,7 +14,14 @@ export function useWatchlist() {
 
 // creates the provider component for the watchlist
 export function WatchlistProvider({ children }) {
-  const [watchlist, setWatchlist] = useState([]);
+  const [watchlist, setWatchlist] = useState(() => { // checks the local storage for the watchlist, if it cannot be found, returns an empty watchlist
+    const saved = localStorage.getItem('watchlist');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => { // whenever watchlist changes, save to local storage
+    localStorage.setItem('watchlist', JSON.stringify(watchlist)); 
+  }, [watchlist]);
 
   const addToWatchlist = (movie) => {
     if (!watchlist.some(m => m.id === movie.id)) {
