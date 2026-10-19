@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useWatchlist } from '../contexts/WatchlistContext';
 
 function MovieCard({ movie }) {
+  const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
   const [isFavorite, setIsFavorite] = useState(false);
+  // check if the movie is already in the watchlist 
+  const inWatchlist = isInWatchlist(movie.id);
 
   useEffect(() => { // uses localstorage to find the movies that the user has favorited
     const favorites = JSON.parse(localStorage.getItem('favoriteMovie')) || [];
@@ -20,6 +24,14 @@ function MovieCard({ movie }) {
       favorites.push(movie);
       localStorage.setItem('favoriteMovie', JSON.stringify(favorites));
       setIsFavorite(true);
+    }
+  };
+
+  const handleWatchlistClick = () => { // toggles whether an item is in the watchlist or not
+    if (inWatchlist) {
+      removeFromWatchlist(movie.id);
+    } else {
+      addToWatchlist(movie);
     }
   };
 

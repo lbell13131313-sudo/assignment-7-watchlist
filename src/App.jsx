@@ -5,6 +5,8 @@ import Favorites from './pages/Favorites';
 import './App.css';
 import { searchMovies } from './services/movieService'; 
 import { useState } from 'react';
+import Watchlist from './pages/Watchlist';
+import { WatchlistProvider } from './contexts/WatchlistContext';
 
 function App() {
   const [searchResults, setSearchResults] = useState(null);
@@ -14,16 +16,20 @@ function App() {
     setSearchResults(results); 
   }; 
 
+  // the entire App gets wrapped by the Watchlist Provider so I can access context
   return (
-    <Router>
-      <div className="app">
-        <Header onSearch={handleSearch} />
-        <Routes>
-          <Route path="/" element={<Home searchResults={searchResults} />} />
-          <Route path="/favorites" element={<Favorites />} />
-        </Routes>
-      </div>
-    </Router>
+    <WatchlistProvider>
+      <Router>
+        <div className="app">
+          <Header onSearch={handleSearch} />
+          <Routes>
+            <Route path="/" element={<Home searchResults={searchResults} />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/watchlist" element={<Watchlist />} />
+          </Routes>
+        </div>
+      </Router>
+    </WatchlistProvider>
   );
 };
 
